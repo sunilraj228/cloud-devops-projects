@@ -17,22 +17,22 @@ The implementation uses the AWS Management Console in the Asia Pacific (Hyderaba
 
 ## 3. AWS Resources Used
 
-| Resource                | Configuration                          |
-| ----------------------- | -------------------------------------- |
-| AWS Region              | Asia Pacific (Hyderabad), `ap-south-2` |
-| VPC                     | `vpc-0f366b8f49681c6ed`                |
-| Security Group          | `MyASG`                                |
-| Security Group ID       | `sg-07bb271cc6db84f63`                 |
-| Launch Template         | `com03-asg-launch-template`            |
-| Launch Template ID      | `lt-05622903c4f70486a`                 |
-| Launch Template Version | 1                                      |
-| AMI                     | Amazon Linux 2023, x86_64              |
-| Instance Type           | `t3.micro`                             |
-| Key Pair                | `sunil56`                              |
-| Auto Scaling Group      | `com03-auto-scaling-group`             |
-| Minimum Capacity        | 2                                      |
-| Desired Capacity        | 2                                      |
-| Maximum Capacity        | 5                                      |
+| Resource | Configuration |
+|---|---|
+| AWS Region | Asia Pacific (Hyderabad), `ap-south-2` |
+| VPC | `vpc-0f366b8f49681c6ed` |
+| Security Group | `MyASG` |
+| Security Group ID | `sg-07bb271cc6db84f63` |
+| Launch Template | `com03-asg-launch-template` |
+| Launch Template ID | `lt-05622903c4f70486a` |
+| Launch Template Version | 1 |
+| AMI | Amazon Linux 2023, x86_64 |
+| Instance Type | `t3.micro` |
+| Key Pair | `sunil56` |
+| Auto Scaling Group | `com03-auto-scaling-group` |
+| Minimum Capacity | 2 |
+| Desired Capacity | 2 |
+| Maximum Capacity | 5 |
 
 ## 4. Implementation Steps
 
@@ -49,11 +49,7 @@ The implementation uses the AWS Management Console in the Asia Pacific (Hyderaba
 3. Confirm that the Auto Scaling Group will use subnets in multiple Availability Zones.
 4. Use the appropriate VPC and subnet selections when creating the Auto Scaling Group.
 
-VPC ID:
-
-```text
-vpc-0f366b8f49681c6ed
-```
+**VPC ID:** `vpc-0f366b8f49681c6ed`
 
 Using subnets in multiple Availability Zones helps distribute instances across separate infrastructure locations within the selected AWS Region.
 
@@ -66,16 +62,16 @@ A Launch Template defines the configuration used to launch EC2 instances.
 3. Select **Create launch template**.
 4. Enter the following configuration:
 
-| Setting              | Value                       |
-| -------------------- | --------------------------- |
+| Setting | Value |
+|---|---|
 | Launch Template Name | `com03-asg-launch-template` |
-| Version Description  | `Project version 1`         |
-| Amazon Machine Image | Amazon Linux 2023           |
-| Architecture         | 64-bit x86                  |
-| Instance Type        | `t3.micro`                  |
-| Key Pair             | `sunil56`                   |
-| Security Group       | `MyASG`                     |
-| Root EBS Volume      | 8 GiB                       |
+| Version Description | `Project version 1` |
+| Amazon Machine Image | Amazon Linux 2023 |
+| Architecture | 64-bit x86 |
+| Instance Type | `t3.micro` |
+| Key Pair | `sunil56` |
+| Security Group | `MyASG` |
+| Root EBS Volume | 8 GiB |
 
 5. Leave the subnet selection to the Auto Scaling Group configuration.
 6. Create the Launch Template.
@@ -88,22 +84,17 @@ The Launch Template was created with ID `lt-05622903c4f70486a`, version 1.
 1. Open the Amazon EC2 console.
 2. Navigate to **Auto Scaling Groups**.
 3. Select **Create Auto Scaling group**.
-4. Enter the name:
-
-```text
-com03-auto-scaling-group
-```
-
+4. Enter the name `com03-auto-scaling-group`.
 5. Select the Launch Template `com03-asg-launch-template`.
 6. Choose the appropriate VPC and subnets in multiple Availability Zones.
 7. Continue to the group size configuration.
 8. Set the following capacity values:
 
 | Capacity Setting | Value |
-| ---------------- | ----: |
-| Desired Capacity |     2 |
-| Minimum Capacity |     2 |
-| Maximum Capacity |     5 |
+|---|---:|
+| Desired Capacity | 2 |
+| Minimum Capacity | 2 |
+| Maximum Capacity | 5 |
 
 9. Leave load balancing unconfigured for this implementation.
 10. Keep EC2 health checks enabled.
@@ -139,8 +130,6 @@ This confirms that automatic instance replacement is working.
 
 ### Step 7: Increase Desired Capacity to Three
 
-This is an additional project step that remains to be completed.
-
 To increase the group from two instances to three:
 
 1. Open **EC2 > Auto Scaling Groups**.
@@ -151,9 +140,7 @@ To increase the group from two instances to three:
 6. Save the changes.
 7. Verify that the group launches a third instance.
 
-**Status:** Pending.
-
-Do not mark this step as completed until the third instance has been verified.
+**Status:** Pending verification.
 
 ### Step 8: Clean Up AWS Resources
 
@@ -164,7 +151,7 @@ After completing the project, remove resources that are no longer needed to avoi
 3. Delete the Launch Template if it is no longer required.
 4. Check the EC2 console to confirm that no project instances remain running.
 
-**Status:** Pending.
+**Status:** Pending verification.
 
 Keep any resources required for further testing until the project is complete.
 
@@ -193,10 +180,10 @@ This behavior was verified during the project when a terminated instance was rep
 For this project, the initial values are:
 
 | Setting | Value |
-| ------- | ----: |
-| Minimum |     2 |
-| Desired |     2 |
-| Maximum |     5 |
+|---|---:|
+| Minimum | 2 |
+| Desired | 2 |
+| Maximum | 5 |
 
 ### Q4. What are Auto Scaling Group metrics used for?
 
@@ -254,14 +241,14 @@ The appropriate termination behavior depends on the workload and availability re
 - [x] Verified the initial EC2 instances.
 - [x] Terminated one instance to test replacement.
 - [x] Verified that Auto Scaling launched a replacement instance.
-- [x] Increased desired capacity to three and verified the third instance.
-- [x] Cleaned up the project resources.
+- [ ] Increased desired capacity to three and verified the third instance.
+- [ ] Cleaned up the project resources.
 
 ## 7. Conclusion
 
 This project demonstrated how to create an EC2 Launch Template and use it to configure an Auto Scaling Group. The group launched the initial instances and automatically replaced an instance after manual termination, confirming that it could restore the configured desired capacity.
 
-Increasing desired capacity to three and cleaning up the project resources remain pending. These steps should be completed before reporting the entire project as finished.
+The capacity increase and resource cleanup should be verified before marking the project as fully completed.
 
 ## 8. References
 
