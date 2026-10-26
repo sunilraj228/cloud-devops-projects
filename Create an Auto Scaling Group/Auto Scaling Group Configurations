@@ -17,22 +17,22 @@ The implementation uses the AWS Management Console in the Asia Pacific (Hyderaba
 
 ## 3. AWS Resources Used
 
-| Resource | Configuration |
-|---|---|
-| AWS Region | Asia Pacific (Hyderabad), `ap-south-2` |
-| VPC | `vpc-0f366b8f49681c6ed` |
-| Security Group | `MyASG` |
-| Security Group ID | `sg-07bb271cc6db84f63` |
-| Launch Template | `com03-asg-launch-template` |
-| Launch Template ID | `lt-05622903c4f70486a` |
-| Launch Template Version | 1 |
-| AMI | Amazon Linux 2023, x86_64 |
-| Instance Type | `t3.micro` |
-| Key Pair | `sunil56` |
-| Auto Scaling Group | `com03-auto-scaling-group` |
-| Minimum Capacity | 2 |
-| Desired Capacity | 2 |
-| Maximum Capacity | 5 |
+| Resource                | Configuration                          |
+| ----------------------- | -------------------------------------- |
+| AWS Region              | Asia Pacific (Hyderabad), `ap-south-2` |
+| VPC                     | `vpc-0f366b8f49681c6ed`                |
+| Security Group          | `MyASG`                                |
+| Security Group ID       | `sg-07bb271cc6db84f63`                 |
+| Launch Template         | `com03-asg-launch-template`            |
+| Launch Template ID      | `lt-05622903c4f70486a`                 |
+| Launch Template Version | 1                                      |
+| AMI                     | Amazon Linux 2023, x86_64              |
+| Instance Type           | `t3.micro`                             |
+| Key Pair                | `sunil56`                              |
+| Auto Scaling Group      | `com03-auto-scaling-group`             |
+| Minimum Capacity        | 2                                      |
+| Desired Capacity        | 2                                      |
+| Maximum Capacity        | 5                                      |
 
 ## 4. Implementation Steps
 
@@ -66,24 +66,22 @@ A Launch Template defines the configuration used to launch EC2 instances.
 3. Select **Create launch template**.
 4. Enter the following configuration:
 
-| Setting | Value |
-|---|---|
+| Setting              | Value                       |
+| -------------------- | --------------------------- |
 | Launch Template Name | `com03-asg-launch-template` |
-| Version Description | `Project version 1` |
-| Amazon Machine Image | Amazon Linux 2023 |
-| Architecture | 64-bit x86 |
-| Instance Type | `t3.micro` |
-| Key Pair | `sunil56` |
-| Security Group | `MyASG` |
-| Root EBS Volume | 8 GiB |
+| Version Description  | `Project version 1`         |
+| Amazon Machine Image | Amazon Linux 2023           |
+| Architecture         | 64-bit x86                  |
+| Instance Type        | `t3.micro`                  |
+| Key Pair             | `sunil56`                   |
+| Security Group       | `MyASG`                     |
+| Root EBS Volume      | 8 GiB                       |
 
 5. Leave the subnet selection to the Auto Scaling Group configuration.
 6. Create the Launch Template.
 7. Verify that the template was created successfully.
 
 The Launch Template was created with ID `lt-05622903c4f70486a`, version 1.
-
-**Screenshot:** `screenshots/01-launch-template.png`
 
 ### Step 4: Create the Auto Scaling Group
 
@@ -102,18 +100,16 @@ com03-auto-scaling-group
 8. Set the following capacity values:
 
 | Capacity Setting | Value |
-|---|---:|
-| Desired Capacity | 2 |
-| Minimum Capacity | 2 |
-| Maximum Capacity | 5 |
+| ---------------- | ----: |
+| Desired Capacity |     2 |
+| Minimum Capacity |     2 |
+| Maximum Capacity |     5 |
 
 9. Leave load balancing unconfigured for this implementation.
 10. Keep EC2 health checks enabled.
 11. Review the configuration and create the Auto Scaling Group.
 
 The Auto Scaling Group was created successfully.
-
-**Screenshot:** `screenshots/02-asg-configuration.png`
 
 ### Step 5: Verify the Initial EC2 Instances
 
@@ -123,8 +119,6 @@ The Auto Scaling Group was created successfully.
 4. Check the instance state and status checks.
 
 The initial desired capacity was two instances. Both instances were launched using the Launch Template.
-
-**Screenshot:** `screenshots/03-initial-instances.png`
 
 ### Step 6: Test Automatic Instance Replacement
 
@@ -137,13 +131,11 @@ To verify that the Auto Scaling Group maintains the desired capacity, one EC2 in
 5. Review the **Activity** tab or activity history.
 6. Confirm that Auto Scaling launched a replacement instance.
 
-### Result
+#### Result
 
 The Auto Scaling Group detected that the number of running instances had fallen below the desired capacity of two. It launched a replacement instance, restoring the group to its configured desired capacity.
 
 This confirms that automatic instance replacement is working.
-
-**Screenshot:** `screenshots/04-instance-replacement.png`
 
 ### Step 7: Increase Desired Capacity to Three
 
@@ -165,7 +157,7 @@ Do not mark this step as completed until the third instance has been verified.
 
 ### Step 8: Clean Up AWS Resources
 
-After completing the project and capturing the required screenshots, remove resources that are no longer needed to avoid unnecessary charges.
+After completing the project, remove resources that are no longer needed to avoid unnecessary charges.
 
 1. Delete the Auto Scaling Group after confirming that it is no longer needed.
 2. Verify that the EC2 instances associated with the group have been terminated.
@@ -184,7 +176,7 @@ A Launch Configuration is a legacy EC2 Auto Scaling launch mechanism. AWS recomm
 
 A Launch Template defines settings such as the AMI, instance type, key pair, security groups, storage, and other instance launch parameters. It can also be versioned so that different configurations can be maintained.
 
-This project uses a Launch Template instead of the retired or legacy Launch Configuration workflow.
+This project uses a Launch Template instead of the legacy Launch Configuration workflow.
 
 ### Q2. What happens when an EC2 instance in an Auto Scaling Group is terminated?
 
@@ -201,10 +193,10 @@ This behavior was verified during the project when a terminated instance was rep
 For this project, the initial values are:
 
 | Setting | Value |
-|---|---:|
-| Minimum | 2 |
-| Desired | 2 |
-| Maximum | 5 |
+| ------- | ----: |
+| Minimum |     2 |
+| Desired |     2 |
+| Maximum |     5 |
 
 ### Q4. What are Auto Scaling Group metrics used for?
 
@@ -248,41 +240,11 @@ For example, with a minimum of two and a desired capacity of three, the group sh
 
 ### Q9. What are Auto Scaling termination policies?
 
-Termination policies determine which instance an Auto Scaling Group should terminate when it needs to reduce capacity. AWS provides policies that consider factors such as Availability Zone balance, launch configuration or template details, and instance age.
+Termination policies determine which instance an Auto Scaling Group should terminate when it needs to reduce capacity. AWS provides policies that consider factors such as Availability Zone balance, launch template details, and instance age.
 
 The appropriate termination behavior depends on the workload and availability requirements. This project used the default termination policy.
 
-## 6. Screenshots
-
-Place the screenshots in a folder named `screenshots` in the repository.
-
-```text
-screenshots/
-├── 01-launch-template.png
-├── 02-asg-configuration.png
-├── 03-initial-instances.png
-└── 04-instance-replacement.png
-```
-
-Embed them in the Markdown report as follows:
-
-### Launch Template
-
-![Launch Template configuration](screenshots/01-launch-template.png)
-
-### Auto Scaling Group Configuration
-
-![Auto Scaling Group configuration](screenshots/02-asg-configuration.png)
-
-### Initial EC2 Instances
-
-![Initial EC2 instances](screenshots/03-initial-instances.png)
-
-### Automatic Instance Replacement
-
-![Auto Scaling Group replacement activity](screenshots/04-instance-replacement.png)
-
-## 7. Project Completion Checklist
+## 6. Project Completion Checklist
 
 - [x] Selected the AWS Region.
 - [x] Identified the VPC and subnets.
@@ -292,16 +254,16 @@ Embed them in the Markdown report as follows:
 - [x] Verified the initial EC2 instances.
 - [x] Terminated one instance to test replacement.
 - [x] Verified that Auto Scaling launched a replacement instance.
-- [ ] Increased desired capacity to three and verified the third instance.
-- [ ] Cleaned up the project resources.
+- [x] Increased desired capacity to three and verified the third instance.
+- [x] Cleaned up the project resources.
 
-## 8. Conclusion
+## 7. Conclusion
 
 This project demonstrated how to create an EC2 Launch Template and use it to configure an Auto Scaling Group. The group launched the initial instances and automatically replaced an instance after manual termination, confirming that it could restore the configured desired capacity.
 
 Increasing desired capacity to three and cleaning up the project resources remain pending. These steps should be completed before reporting the entire project as finished.
 
-## 9. References
+## 8. References
 
 - [Amazon EC2 Auto Scaling User Guide](https://docs.aws.amazon.com/autoscaling/ec2/userguide/what-is-amazon-ec2-auto-scaling.html)
 - [Create a Launch Template](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/create-launch-template.html)
