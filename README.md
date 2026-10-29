@@ -29,7 +29,7 @@ Each project will include step-by-step documentation and evidence of implementat
 | # | Project | Description | Status |
 |---:|---|---|---|
 | 1 | [Create an Auto Scaling Group](./aws/01-auto-scaling-group/) | Create an EC2 Launch Template and Auto Scaling Group, configure capacity, and test automatic instance replacement. | Done |
-| 2 | [Create an Aurora RDS Database](./aws/02-aurora-rds-database/) | Provision an Amazon Aurora database and explore database connectivity, configuration, and security. | Planned |
+| 2 | [Deploy and Test an Amazon RDS MySQL Database](./Deploy%20and%20Test%20an%20Amazon%20RDS%20MySQL%20Database/) | Provision an Amazon RDS for MySQL instance, configure connectivity and security, validate SQL operations, and clean up resources. | Done |
 | 3 | [Create a Serverless API](./aws/03-serverless-api/) | Build a serverless API using AWS Lambda and Amazon API Gateway. | Planned |
 | 4 | [Create a KMS Customer Managed Key and Encrypt an Object](./aws/04-kms-encryption/) | Create a customer managed key in AWS KMS and use it to encrypt an object in Amazon S3. | Planned |
 | 5 | [Create an EFS Shared File System](./aws/05-efs-shared-file-system/) | Configure Amazon EFS and explore shared file access from EC2 instances. | Planned |
